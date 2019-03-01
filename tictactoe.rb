@@ -58,7 +58,9 @@ def turnHuman(notplayed)
 end
 
 def turnBot(value)
-  value.sample
+  if(value != [])
+    value.sample
+  end
 end
 
 def tictactoe()
@@ -78,7 +80,6 @@ def tictactoe()
 
     # pos_human : Es el valor que ingresa el usuario
     pos_human = turnHuman(notPlayed(value_human+value_bot))
-
     table[pos_human-1] = player
     value_human.push(pos_human)
     
@@ -97,6 +98,7 @@ def tictactoe()
 
     puts "Soy un humna #{value_human}"
     puts "Soy un bot #{value_bot}"
+    puts "NO JUGADAS #{notPlayed(value_human+value_bot)}"
     
     for i in 0..COMBINATIONS_WIN.length-1
       

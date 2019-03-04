@@ -30,17 +30,7 @@ COMBINATIONS_WIN = [
   [3,5,7]
 ]
 
-TABLE = [
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9
-]
+TABLE = [1,2,3,4,5,6,7,8,9]
 
 def notPlayed(value)
   arrNP = TABLE - value
@@ -79,14 +69,40 @@ def tictactoe()
 
 
     # pos_human : Es el valor que ingresa el usuario
-    pos_human = turnHuman(notPlayed(value_human+value_bot))
+
+
+    pos_human = turnHuman(notPlayed(value_human+value_bot)).to_i
     table[pos_human-1] = player
     value_human.push(pos_human)
+
+    for i in 0..COMBINATIONS_WIN.length-1
+
+      if ( (COMBINATIONS_WIN[i] - value_human) == [] )
+
+        puts "El indescutible ganador!! es el HUMANO #{player}"
+        return band = true 
+      
+      elsif ( (COMBINATIONS_WIN[i] - value_bot) == [] )
+        
+        puts "El indescutible ganador!! es el BOT #{player}"
+        return band = true 
+        
+      end
+
+      
+    end
+    if notPlayed(value_human+value_bot)==[]
+      puts "Empataron"
+      return band = true 
+    end
+
     
 
-    pos_bot = turnBot(notPlayed(value_human+value_bot))
-    table[pos_bot-1] = bot
-    value_bot.push(pos_bot)
+    pos_bot= turnBot(notPlayed(value_human+value_bot)).to_i
+    if pos_bot!=0
+      table[pos_bot-1] = bot
+      value_bot.push(pos_bot)
+    end 
 
     # player == "X" ? value_human.push(pos) : value_bot.push(pos)
 
@@ -101,15 +117,25 @@ def tictactoe()
     puts "NO JUGADAS #{notPlayed(value_human+value_bot)}"
     
     for i in 0..COMBINATIONS_WIN.length-1
-      
+
+
+
       if ( (COMBINATIONS_WIN[i] - value_human) == [] )
+           
         puts "El indescutible ganador!! es el HUMANO #{player}"
         return band = true 
+      
       elsif ( (COMBINATIONS_WIN[i] - value_bot) == [] )
+        
         puts "El indescutible ganador!! es el BOT #{player}"
         return band = true 
+      
       end
       
+    end
+    if notPlayed(value_human+value_bot)==[]
+      puts "Empataron"
+      return band = true 
     end
 
   end
